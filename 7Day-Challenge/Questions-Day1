@@ -1,0 +1,40 @@
+Day 1 — TypeScript Basics (Types, Variables, Arrays, Tuples)
+===================================================X=======================================X============================================================================================================X=================================
+
+# EASY #
+
+(Easy) Declare variables name, age, and isStudent with explicit types (string, number, boolean) and log them.
+
+(Easy) Explicit Signatures: Declare variables for a user profile: username (string), age (number), isSubscribed (boolean), and hobbies (array of strings) using explicit type annotations.
+
+(Easy) Create an array scores that can only hold numbers. Try pushing a string into it and see the error TS gives you.
+
+(Easy) Create a tuple person that holds exactly [string, number] (name, age). Try adding a third element and observe the error.
+
+(Easy) Write a function greet(name: string): string that returns "Hello, <name>!".
+
+===================================================X=======================================X============================================================================================================X=================================
+
+# MEDIUM #
+
+(Medium) Write a function add(a: number, b: number): number. Then deliberately pass a string argument and note the compiler error.
+
+(Medium) Strict Math Functions: Write a typed function calculateTax(price: number, taxRate: number = 0.18): number that handles default tax rates and rejects invalid numeric values.
+
+(Medium) Optional Parameters: Create a function formatName(firstName: string, lastName?: string): string that returns "First Last" if lastName exists, or just "First".
+
+(Medium) Create a 2D array matrix: number[][] representing a 3x3 grid, and write a function printMatrix that logs it row by row.
+
+(Medium) Literal Types: Define a type ThemeMode = "light" | "dark" | "system". Write a function toggleTheme that switches "light" to "dark" and vice versa.
+
+===================================================X=======================================X============================================================================================================X=================================
+
+# HARD #
+
+(Hard) Create a variable of type any and one of type unknown. Try assigning both to a string variable — explain (in a comment) why one works and the other doesn't.
+
+(Hard) Type Narrowing with typeof: Create a function double(value: number | string) that doubles the number or repeats the string twice ("abc" becomes "abcabc").
+
+(Hard) Union Primitives: Write a function formatID(id: string | number): string that returns an uppercase string if id is a string, or a padded string (e.g., 00042) if id is a number.
+
+(Hard) Void vs. Never: Implement two functions: logAlert(msg: string): void that logs to the console, and throwAuthError(msg: string): never that raises a runtime exception.
