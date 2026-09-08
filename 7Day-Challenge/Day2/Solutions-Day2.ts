@@ -71,3 +71,87 @@ console.log(calculateDistance(nyc, philadelphia));
 const HttpMethods: readonly string []=["GET", "POST", "PUT", "DELETE"]
 
 HttpMethods.map(item=>console.log(item))
+
+
+// Medium
+//========================================x=============================================x=============================================================x=============================
+
+// (Medium) Add an optional property phone?: string to the User interface from Q1. Write a function that only prints the phone if it exists.
+
+interface User{
+    id:number,
+    name:string,
+    email:string,
+    phone?:string
+}
+
+function printDetails(user:User){
+    console.log(`Your Joining Id: ${user.id} \n Your Name: ${user.name} \n Your Email: ${user.email} \n  ${user.phone? `Your Phone : ${user.phone}`: ``}`)
+}
+
+printDetails({id: 1,name:"Vivek Chauhan",email:"er.vivekchauhan1@gmail.com"})
+printDetails({id: 2,name:"Ruchi Mishra",email:"ruchiMishra@gmail.com",phone:"9181919911"})
+
+// (Medium) Create a union type type Status = "success" | "error" | "loading" and write a function handleStatus(status: Status) that returns a different message per status.
+
+type Status = "success" | "error" | "loading"
+
+function handleStatus(status:Status):string{
+    switch(status){
+    case "success":
+        return "Operation completed successfully!";
+    case "error":
+        return "Error Occured!";
+    case "loading":
+        return "Operation loading!";
+    default:
+        const _exhaustiveCheck:never=status
+        return _exhaustiveCheck
+}
+}
+
+handleStatus("success")
+handleStatus("error")
+handleStatus("loading")
+
+// (Medium) Create an intersection type combining { name: string } and { age: number } into Person. Create an object using it.
+
+type Person ={name:string} & {age:number}
+
+const user:Person = {
+    name:"Alex",
+    age:21
+}
+
+console.log(user.name)
+console.log(user.age)
+
+// (Medium) Labeled Tuples: Create a labeled tuple type ApiResponse = [statusCode: number, message: string, success: boolean]. Write a validator function returning this tuple.
+
+type ApiResponse = [statusCode: number, message: string, success: boolean];
+
+function validator(api: unknown): api is ApiResponse {
+  
+    if (!Array.isArray(api) || api.length !== 3) {
+    return false;
+  }
+
+  const [statusCode, message, success] = api;
+
+  if (typeof statusCode !== "number") {
+    return false;
+  }
+  if (typeof message !== "string") {
+    return false;
+  }
+  if (typeof success !== "boolean") {
+    return false;
+  }
+
+  return true;
+}
+// (Medium) Matrix Typing: Define a 2D coordinate grid type Matrix2D representing a grid of numbers (number[][]) and write a function to calculate the diagonal sum.
+
+// (Medium) Numeric Enums: Define an enum OrderStatus { Pending, Processing, Shipped, Delivered, Cancelled }. Write a function checking if the status is cancellable (only Pending and Processing).
+
+// (Medium) String Enums: Define a string enum UserRole { Admin = "ADMIN", Editor = "EDITOR", Viewer = "VIEWER" }. Write a role authorization guard function.
