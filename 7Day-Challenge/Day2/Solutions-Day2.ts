@@ -152,6 +152,127 @@ function validator(api: unknown): api is ApiResponse {
 }
 // (Medium) Matrix Typing: Define a 2D coordinate grid type Matrix2D representing a grid of numbers (number[][]) and write a function to calculate the diagonal sum.
 
+type matrix2D = number[][]
+
+function getDiagonalSum(matrix:matrix2D):void
+{
+    let n=matrix.length
+    let sum=0
+    
+    for(let i=0;i<n;i++){
+        if(matrix[i] && matrix[i][i]!==undefined)
+            sum+=matrix[i][i]
+    }
+
+    console.log(`Sum of the Diagonal is: ${sum}`)
+}
+
+const grid:matrix2D=[[1,2,3],[4,5,6],[7,8,9]]
+getDiagonalSum(grid)
+
 // (Medium) Numeric Enums: Define an enum OrderStatus { Pending, Processing, Shipped, Delivered, Cancelled }. Write a function checking if the status is cancellable (only Pending and Processing).
 
+enum OrderStatus{
+    Pending,
+    Processing,
+    Shipped,
+    Delivered,
+    Cancelled
+}
+
+function isCancellable(status:OrderStatus):boolean{
+    return status===OrderStatus.Pending || status===OrderStatus.Processing
+}
+
+const currentOrder = OrderStatus.Pending;
+
+if (isCancellable(currentOrder)) {
+  console.log("Order can be cancelled");
+} else {
+  console.log("Order cannot be cancelled");
+}
+
+console.log(isCancellable(OrderStatus.Shipped));
+
 // (Medium) String Enums: Define a string enum UserRole { Admin = "ADMIN", Editor = "EDITOR", Viewer = "VIEWER" }. Write a role authorization guard function.
+
+enum UserRole{
+    Admin = "ADMIN",
+    Editor = "EDITOR",
+    Viewer = "VIEWER"
+}
+
+function Authentication(user:string):void{
+    if(user && UserRole[user as keyof typeof UserRole])
+    console.log(UserRole[user as keyof typeof UserRole] + " Permitted")
+    else
+    console.log("Unauthorized")
+}
+
+Authentication("Admin")
+Authentication("Clerk")
+
+// Hard
+//========================================x=============================================x=============================================================x=============================
+
+// (Hard) Extend the User interface into Admin (add role: "admin" and permissions: string[]). Write a function logAccess(user: User | Admin) that uses a type guard ("role" in user) to check if it's an Admin before printing permissions.
+
+interface User{
+    name:string,
+    age:number,
+    email:string
+}
+
+interface Admin extends User {
+    role:'admin',
+    permissions:string[]
+}
+
+function logAccess(user: User | Admin): void{
+  if ("role" in user) {
+    // TypeScript narrows `user` to Admin within this block
+    console.log(`Admin ${user.name} has permissions: ${user.permissions.join(", ")}`);
+  } else {
+    // TypeScript narrows `user` to User
+    console.log(`User ${user.name} does not have admin permissions.`);
+  }
+}
+
+const user:User={
+    name:"John Doe",
+    age:30,
+    email:"johnDoe@gmail.com"
+}
+
+const admin:Admin={
+    name:"Jane Smith",
+    age:35,
+    email:"janeSmith@gmail.com",
+    role:"admin",
+    permissions:["read", "write", "delete"]
+}
+
+logAccess(user);  // Output: User John Doe does not have admin permissions.
+logAccess(admin); // Output: Admin Jane Smith has permissions: read, write, delete.
+
+// (Hard) Enum vs. Const Object: Convert the UserRole enum into a const assertion object (const ROLES = { ... } as const;) and extract its type using keyof and typeof.
+
+const ROLES = {
+  ADMIN: "admin",
+  USER: "user",
+  EDITOR: "editor"
+} as const;
+
+type UserRoleType = keyof typeof ROLES
+
+function checkRole(role: UserRoleType): void {
+  if (role in ROLES) {
+    console.log(`Role ${role} is valid.`);
+  } else {
+    console.log(`Role ${role} is invalid.`);
+  }
+}
+
+checkRole("ADMIN"); // Output: Role ADMIN is valid.
+checkRole("EDITOR"); // Output: Role EDITOR is valid.
+checkRole("USER"); // Output: Role MANAGER is invalid.
